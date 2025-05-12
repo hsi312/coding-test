@@ -8,24 +8,24 @@ import java.util.*;
 
 public class Main {
 
-    public int solution(int n, int[][] board, int m, int[] moves) {
+    public int solution(int n, int[][] board, int[] moves) {
         int answer = 0;
         Stack<Integer> stack = new Stack<>();
 
         for (int column : moves) {
             for (int row = 0; row < n; row++) {
                 int col = column - 1;
-                if (board[row][col] == 0) {
+                int tmp = board[row][col];
+                board[row][col] = 0;
+                if (tmp == 0) {
                     continue;
                 }
-                if (!stack.isEmpty() && (stack.peek() == board[row][col])) {
+                if (!stack.isEmpty() && stack.peek() == tmp) {
                     answer += 2;
                     stack.pop();
-                    board[row][col] = 0;
-                    break;
+                } else {
+                    stack.push(tmp);
                 }
-                stack.push(board[row][col]);
-                board[row][col] = 0;
                 break;
             }
         }
@@ -49,6 +49,6 @@ public class Main {
             moves[i] = kb.nextInt();
         }
 
-        System.out.println(T.solution(n, board, m, moves));
+        System.out.println(T.solution(n, board, moves));
     }
 }
