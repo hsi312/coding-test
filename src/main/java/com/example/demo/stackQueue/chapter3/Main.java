@@ -1,4 +1,8 @@
 package com.example.demo.stackQueue.chapter3;
+/**
+ 카카오 문제 인형뽑기
+ */
+
 
 import java.util.*;
 
