@@ -32,18 +32,18 @@ public class Main {
     public int[] solution(int size, int n, int[] arr) {
         int[] cache = new int[size];
         for (int x : arr) {
-            int pos = -1;
+            int hit = -1;
             for (int i = 0; i < size; i++) {
                 if (x == cache[i]) {
-                    pos = i;
+                    hit = i;
                 }
             }
-            if (pos == -1) {
+            if (hit == -1) {
                 for (int i = size - 1; i >= 1; i--) {
                     cache[i] = cache[i - 1];
                 }
             } else {
-                for (int  i = pos; i >= 1; i--) {
+                for (int  i = hit; i >= 1; i--) {
                     cache[i] = cache[i - 1];
                 }
             }
