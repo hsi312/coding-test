@@ -1,4 +1,4 @@
-package com.example.demo.sortSearching;
+package com.example.demo.sortSearching.chapter4;
 /**
  4. Least Recently Used
  캐시메모리는 CPU와 주기억장치(DRAM) 사이의 고속의 임시 메모리로서 CPU가 처리할 작업을 저장해 놓았다가
