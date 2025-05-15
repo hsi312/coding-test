@@ -56,6 +56,7 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr.add(new Point(kb.nextInt(), kb.nextInt()));
         }
+        // sort() 메서드에서 Comparable 사용함
         Collections.sort(arr);
         for (Point o : arr) {
             System.out.println(o.x + " " + o.y);
