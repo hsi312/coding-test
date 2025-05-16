@@ -30,52 +30,16 @@ package com.example.demo.sortSearching.chapter9;
 
 import java.util.*;
 
-public class Main {
-
-    public int dvdCount(int[]arr, int capacity) {
-        int cnt = 1, min = 0;
-        for (int x : arr) {
-            if (x + min > capacity) {
-                cnt++;
-                min = x;
-            } else {
-                min += x;
-            }
-        }
-
-        return cnt;
-    }
+public class Practice {
 
     public int solution(int n, int m, int[] arr) {
         int answer = 0;
-        int lt = Arrays.stream(arr).max().getAsInt();
-        int rt = Arrays.stream(arr).sum();
-        while (lt <= rt) {
-            int mid = (lt + rt) / 2;
-
-            int cnt = 1, min = 0;
-            for (int x : arr) {
-                if (x + min > mid) {
-                    cnt++;
-                    min = x;
-                } else {
-                    min += x;
-                }
-            }
-
-            if (cnt <= m) {
-                answer = mid;
-                rt = mid - 1;
-            } else {
-                lt = mid + 1;
-            }
-        }
 
         return answer;
     }
 
     public static void main(String[] args) {
-        Main T = new Main();
+        Practice T = new Practice();
         Scanner kb = new Scanner(System.in);
         int n = kb.nextInt();
         int m = kb.nextInt();
