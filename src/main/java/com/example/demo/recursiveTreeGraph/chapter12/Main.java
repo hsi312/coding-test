@@ -1,14 +1,14 @@
-package com.example.demo.recursiveTreeGraph.chapter11;
+package com.example.demo.recursiveTreeGraph.chapter12;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Practice {
+public class Main {
     static int n, m, answer = 0;
-    static int[] ch;
     static ArrayList<ArrayList<Integer>> graph;
+    static int[] ch;
     public void DFS(int v) {
-        if (n == v) {
+        if (v == n) {
             answer++;
         } else {
             for (int nv : graph.get(v)) {
@@ -22,15 +22,15 @@ public class Practice {
     }
 
     public static void main(String[] args) {
-        Practice T = new Practice();
+        Main T = new Main();
         Scanner kb = new Scanner(System.in);
         n = kb.nextInt();
         m = kb.nextInt();
-        ch = new int[n + 1];
         graph = new ArrayList<>();
-        for ( int i = 0; i <= n; i ++) {
+        for (int i = 0; i <= n; i++) {
             graph.add(new ArrayList<>());
         }
+        ch = new int[n + 1];
         for (int i = 0; i < m; i++) {
             int a = kb.nextInt();
             int b = kb.nextInt();
