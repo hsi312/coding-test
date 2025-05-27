@@ -1,4 +1,4 @@
-package com.example.demo.recursiveTreeGraph.chaptet11;
+package com.example.demo.recursiveTreeGraph.chapter11;
 
 import java.util.Scanner;
 
