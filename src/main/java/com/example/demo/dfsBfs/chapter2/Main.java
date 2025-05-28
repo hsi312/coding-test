@@ -1,4 +1,4 @@
-package com.example.demo.dfsBfs.chpater2;
+package com.example.demo.dfsBfs.chapter2;
 /**
  2. 바둑이 승차(DFS)
  철수는 그의 바둑이들을 데리고 시장에 가려고 한다. 그런데 그의 트럭은 C킬로그램 넘게 태울수가 없다.
@@ -28,11 +28,28 @@ package com.example.demo.dfsBfs.chpater2;
 import java.util.Scanner;
 
 public class Main {
+    static int c, n, answer;
     public void DFS(int L, int sum, int[] arr) {
+        if (sum > c) return;
+        if (L == n) {
+            answer = Math.max(answer, sum);
+        } else {
+            DFS(L + 1, sum + arr[L], arr);
+            DFS(L + 1, sum, arr);
+        }
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
+        c = kb.nextInt();
+        n = kb.nextInt();
+        answer = Integer.MIN_VALUE;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = kb.nextInt();
+        }
+        T.DFS(0, 0, arr);
+        System.out.println(answer);
     }
 }
