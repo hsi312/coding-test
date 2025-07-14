@@ -4,18 +4,9 @@ import java.util.*;
 
 public class Main {
 
-    public ArrayList<Integer> solution(int n) {
-        ArrayList<Integer> answer = new ArrayList<>();
-        int a = 1;
-        int b = 1;
-        answer.add(a);
-        answer.add(b);
-        for (int i = 2; i < n; i++) {
-            int sum = a + b;
-            answer.add(sum);
-            a = b;
-            b = sum;
-        }
+    public int solution(int n, int[][] arr) {
+        int answer = 0;
+
 
         return answer;
     }
@@ -24,8 +15,13 @@ public class Main {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        for (int x : T.solution(n)) {
-            System.out.print(x + " ");
+        int m = sc.nextInt();
+        int[][] arr = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                arr[i][j] = sc.nextInt();
+            }
         }
+        System.out.println(T.solution(n, arr));
     }
 }
