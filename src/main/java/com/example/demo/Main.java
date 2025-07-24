@@ -4,30 +4,38 @@ import java.util.*;
 
 public class Main {
 
-    public String solution(String a, String b) {
-        HashMap<Character, Integer> mapA = new HashMap<>();
-        HashMap<Character, Integer> mapB = new HashMap<>();
-        char[] arr1 = a.toCharArray();
-        char[] arr2 = b.toCharArray();
-        for (int i = 0; i < a.length(); i++) {
-            mapA.put(arr1[i], mapA.getOrDefault(arr1[i], 0) + 1);
-            mapB.put(arr2[i], mapB.getOrDefault(arr2[i], 0) + 1);
+    public ArrayList<Integer> solution(int n, int k, int[] arr) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int lt = 0;
+        for (int i = 0; i < k - 1; i++) {
+            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
         }
-        for (char c : mapA.keySet()) {
-            if (!mapA.get(c).equals(mapB.get(c))) {
-                return "NO";
+        for (int rt = k - 1; rt < n; rt++) {
+            map.put(arr[rt], map.getOrDefault(arr[rt], 0) + 1);
+            answer.add(map.size());
+            map.put(arr[lt], map.getOrDefault(arr[lt], 0) - 1);
+            if (map.get(arr[lt]) == 0) {
+                map.remove(arr[lt]);
             }
+            lt++;
         }
 
-        return "YES";
+        return answer;
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
-        String a = sc.next();
-        String b = sc.next();
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
 
-        System.out.println(T.solution(a, b));
+        for(int i : T.solution(n, k, arr)) {
+            System.out.print(i + " ");
+        }
     }
 }
