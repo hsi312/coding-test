@@ -4,21 +4,22 @@ import java.util.*;
 
 public class Main {
 
-    public ArrayList<Integer> solution(int n, int k, int[] arr) {
-        ArrayList<Integer> answer = new ArrayList<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int lt = 0;
-        for (int i = 0; i < k - 1; i++) {
-            map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
-        }
-        for (int rt = k - 1; rt < n; rt++) {
-            map.put(arr[rt], map.getOrDefault(arr[rt], 0) + 1);
-            answer.add(map.size());
-            map.put(arr[lt], map.getOrDefault(arr[lt], 0) - 1);
-            if (map.get(arr[lt]) == 0) {
-                map.remove(arr[lt]);
+    public int solution(int n, int k, int[] arr) {
+        int answer = -1;
+        TreeSet<Integer> tSet = new TreeSet<>(Collections.reverseOrder());
+        for(int i = 0; i < n; i++) {
+            for(int j = i + 1; j < n; j++) {
+                for (int m = j + 1; m < n; m++) {
+                    tSet.add(arr[i] + arr[j] + arr[m]);
+                }
             }
-            lt++;
+        }
+        int cnt = 0;
+        for (int i : tSet) {
+            cnt++;
+            if (cnt == k) {
+                return i;
+            }
         }
 
         return answer;
@@ -33,9 +34,6 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-
-        for(int i : T.solution(n, k, arr)) {
-            System.out.print(i + " ");
-        }
+        System.out.println(T.solution(n, k, arr));
     }
 }
