@@ -2,52 +2,32 @@ package com.example.demo;
 
 import java.util.*;
 
-class Person {
-    int id;
-    int priority;
-    Person (int id, int priority) {
-        this.id = id;
-        this.priority = priority;
-    }
-}
-
 public class Main {
 
-    public int solution(int n, int m, int[] arr) {
-        int answer = 0;
-        Queue<Person> q = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
-            q.offer(new Person(i, arr[i]));
-        }
-        while (!q.isEmpty()) {
-            Person tmp = q.poll();
-            for (Person p : q) {
-                if (p.priority > tmp.priority) {
-                    q.offer(tmp);
-                    tmp = null;
-                    break;
-                }
-            }
-            if (tmp != null) {
-                answer++;
-                if (tmp.id == m) {
-                    return answer;
+    public int[] solution(int n, int[] arr) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
                 }
             }
         }
 
-        return answer;
+        return arr;
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int m = sc.nextInt();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-        System.out.println(T.solution(n, m, arr));
+        for (int i : T.solution(n, arr)) {
+            System.out.print(i + " ");
+        }
     }
 }
