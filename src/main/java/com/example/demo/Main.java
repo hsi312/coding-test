@@ -2,40 +2,26 @@ package com.example.demo;
 
 import java.util.*;
 
-class Node {
-    int data;
-    Node lt;
-    Node rt;
-    public Node(int data) {
-        this.data = data;
-        lt = null;
-        rt = null;
-    }
-}
-
 public class Main {
-    Node root;
+    public static int[] fibo;
+    public static int n;
 
-    public void DFS(Node root) {
-        if (root == null) {
-            return;
-        } else {
-            DFS(root.lt);
-            DFS(root.rt);
-            System.out.print(root.data + " ");
+    public int DFS(int n) {
+        if (n == 1) return fibo[n] = 1;
+        else if (n == 2) return fibo[n] = 1;
+        else {
+            return fibo[n] = DFS(n - 2) + DFS(n - 1);
         }
     }
 
     public static void main(String[] args) {
-        Main tree = new Main();
-        tree.root = new Node(1);
-        tree.root.lt = new Node(2);
-        tree.root.rt = new Node(3);
-        tree.root.lt.lt = new Node(4);
-        tree.root.lt.rt = new Node(5);
-        tree.root.rt.lt = new Node(6);
-        tree.root.rt.rt = new Node(7);
-
-        tree.DFS(tree.root);
+        Main m = new Main();
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        fibo = new int[n + 1];
+        m.DFS(n);
+        for (int i = 1; i <= n; i++) {
+            System.out.print(fibo[i] + " ");
+        }
     }
 }
