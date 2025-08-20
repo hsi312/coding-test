@@ -5,19 +5,19 @@ import java.util.*;
 public class Main {
     static int n;
     static int m;
-    static int answer = Integer.MIN_VALUE;
-    static int[] time;
-    static int[] score;
+    static int[] answer;
 
-    public void DFS(int L, int sum, int t) {
-        if (t > m) {
-            return;
-        }
-        if (L == n) {
-            answer = Math.max(sum, answer);
+    public void DFS(int L) {
+        if (L == m) {
+            for (int i : answer) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
         } else {
-            DFS(L + 1, sum + score[L], time[L] + t);
-            DFS(L + 1, sum, t);
+            for (int i = 1; i <= n; i++) {
+                answer[L] = i;
+                DFS(L + 1);
+            }
         }
     }
 
@@ -26,13 +26,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
         m = sc.nextInt();
-        time = new int[n];
-        score = new int[n];
-        for (int i = 0; i < n; i++) {
-            score[i] = sc.nextInt();
-            time[i] = sc.nextInt();
-        }
-        T.DFS(0, 0, 0);
-        System.out.println(answer);
+        answer = new int[m];
+        T.DFS(0);
     }
 }
