@@ -5,18 +5,17 @@ import java.util.*;
 public class Main {
     static int n;
     static int m;
-    static int[] answer;
+    static Integer[] arr;
+    static int answer = Integer.MAX_VALUE;
 
-    public void DFS(int L) {
-        if (L == m) {
-            for (int i : answer) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
+    public void DFS(int L, int sum) {
+        if (sum > m) return;
+        if(L >= answer) return;
+        if (sum == m) {
+            answer = Math.min(answer, L);
         } else {
-            for (int i = 1; i <= n; i++) {
-                answer[L] = i;
-                DFS(L + 1);
+            for (int i = 0; i < n; i++) {
+                DFS(L + 1, sum + arr[i]);
             }
         }
     }
@@ -25,8 +24,13 @@ public class Main {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
+        arr = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
         m = sc.nextInt();
-        answer = new int[m];
-        T.DFS(0);
+        Arrays.sort(arr, Collections.reverseOrder());
+        T.DFS(0, 0);
+        System.out.println(answer);
     }
 }
