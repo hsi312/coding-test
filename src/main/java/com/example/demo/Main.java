@@ -3,20 +3,17 @@ package com.example.demo;
 import java.util.*;
 
 public class Main {
-    static int n;
-    static int m;
-    static Integer[] arr;
-    static int answer = Integer.MAX_VALUE;
+    static int n, r;
+    int[][] answer = new int[34][34];
 
-    public void DFS(int L, int sum) {
-        if (sum > m) return;
-        if(L >= answer) return;
-        if (sum == m) {
-            answer = Math.min(answer, L);
+    public int DFS(int n, int r) {
+        if (answer[n][r] > 0) {
+            return answer[n][r];
+        }
+        if (n == r || r == 0) {
+            return 1;
         } else {
-            for (int i = 0; i < n; i++) {
-                DFS(L + 1, sum + arr[i]);
-            }
+            return answer[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r);
         }
     }
 
@@ -24,13 +21,7 @@ public class Main {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
-        arr = new Integer[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-        }
-        m = sc.nextInt();
-        Arrays.sort(arr, Collections.reverseOrder());
-        T.DFS(0, 0);
-        System.out.println(answer);
+        r = sc.nextInt();
+        System.out.println(T.DFS(n, r));
     }
 }
