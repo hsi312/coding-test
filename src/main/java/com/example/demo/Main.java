@@ -2,52 +2,51 @@ package com.example.demo;
 
 import java.util.*;
 
-public class Main {
-    static int n, f;
-    static int[] p, ch, b;
-    int[][] dy = new int[17][17];
-    boolean flag = false;
-
-    public int combi(int n, int r) {
-        if (n == r || r == 0) {
-            return 1;
-        } else {
-            return dy[n][r] = combi(n - 1, r - 1) + combi(n - 1, r);
-        }
+class Pointer {
+    public int x;
+    public int y;
+    Pointer(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+}
+public class Main {
+    static int[][] graph, dist;
+    int[] dx = { -1, 0, 1, 0 };
+    int[] dy = { 0, 1, 0, -1 };
 
-    public void DFS(int L, int sum) {
-        if (flag) return;
-        if (L == n) {
-            if (sum == f) {
-                for (int i : p) {
-                    System.out.print(i + " ");
-                }
-                flag = true;
-            }
-        } else {
-            for (int i  = 1; i <= n; i++) {
-                if (ch[i] == 0) {
-                    ch[i] = 1;
-                    p[L] = i;
-                    DFS(L + 1, sum + (p[L] * b[L]));
-                    ch[i] = 0;
+    public int BFS(int L) {
+        Queue<Pointer> q = new LinkedList<>();
+        q.offer(new Pointer(1, 1));
+
+        while (!q.isEmpty()) {
+            Pointer cur = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = cur.x + dx[i];
+                int ny = cur.y + dy[i];
+                if (nx == 7 && ny == 7) return dist[cur.x][cur.y] + 1;
+                if (nx >= 0 && nx <= 7 && ny >= 0 && ny <= 7 && graph[nx][ny] == 0) {
+                    graph[nx][ny] = 1;
+                    q.offer(new Pointer(nx, ny));
+                    dist[nx][ny] = dist[cur.x][cur.y] + 1;
                 }
             }
+            L++;
         }
+        return -1;
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        f = sc.nextInt();
-        ch = new int[n + 1];
-        p = new int[n];
-        b = new int[n];
-        for (int i = 0; i < n; i++) {
-            b[i] = T.combi(n - 1, i);
+        graph = new int[8][8];
+        dist = new int[8][8];
+        for (int i = 1; i <= 7; i++) {
+            for (int j = 1; j <= 7; j++) {
+                graph[i][j] = sc.nextInt();
+            }
         }
-        T.DFS(0, 0);
+        graph[1][1] = 1;
+        System.out.println(T.BFS(0));
     }
 }
