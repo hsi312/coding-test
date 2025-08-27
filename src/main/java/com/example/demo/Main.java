@@ -15,7 +15,7 @@ public class Main {
     int[] dx = { -1, 0, 1, 0 };
     int[] dy = { 0, 1, 0, -1 };
 
-    public int BFS(int L) {
+    public int BFS() {
         Queue<Pointer> q = new LinkedList<>();
         q.offer(new Pointer(1, 1));
 
@@ -31,7 +31,6 @@ public class Main {
                     dist[nx][ny] = dist[cur.x][cur.y] + 1;
                 }
             }
-            L++;
         }
         return -1;
     }
@@ -47,6 +46,6 @@ public class Main {
             }
         }
         graph[1][1] = 1;
-        System.out.println(T.BFS(0));
+        System.out.println(T.BFS());
     }
 }
