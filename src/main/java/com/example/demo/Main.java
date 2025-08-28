@@ -11,41 +11,57 @@ class Pointer {
     }
 }
 public class Main {
+    static int m, n, day = Integer.MIN_VALUE;
     static int[][] graph, dist;
     int[] dx = { -1, 0, 1, 0 };
     int[] dy = { 0, 1, 0, -1 };
+    static Queue<Pointer> q = new LinkedList<>();
 
-    public int BFS() {
-        Queue<Pointer> q = new LinkedList<>();
-        q.offer(new Pointer(1, 1));
-
+    public void BFS() {
         while (!q.isEmpty()) {
             Pointer cur = q.poll();
             for (int i = 0; i < 4; i++) {
                 int nx = cur.x + dx[i];
                 int ny = cur.y + dy[i];
-                if (nx == 7 && ny == 7) return dist[cur.x][cur.y] + 1;
-                if (nx >= 0 && nx <= 7 && ny >= 0 && ny <= 7 && graph[nx][ny] == 0) {
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m && graph[nx][ny] == 0) {
                     graph[nx][ny] = 1;
                     q.offer(new Pointer(nx, ny));
                     dist[nx][ny] = dist[cur.x][cur.y] + 1;
                 }
             }
         }
-        return -1;
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
-        graph = new int[8][8];
-        dist = new int[8][8];
-        for (int i = 1; i <= 7; i++) {
-            for (int j = 1; j <= 7; j++) {
-                graph[i][j] = sc.nextInt();
+        m = sc.nextInt();
+        n = sc.nextInt();
+        graph = new int[n][m];
+        dist = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int num = sc.nextInt();
+                graph[i][j] = num;
+                if (num == 1) {
+                    q.offer(new Pointer(i, j));
+                }
             }
         }
-        graph[1][1] = 1;
-        System.out.println(T.BFS());
+        T.BFS();
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (graph[i][j] == 0) {
+                    flag = true;
+                }
+                day = Math.max(day, dist[i][j]);
+            }
+        }
+        if (flag) {
+            System.out.println(-1);
+        } else {
+            System.out.println(day);
+        }
     }
 }
