@@ -2,21 +2,35 @@ package com.example.demo;
 
 import java.util.*;
 
-public class Main {
-    static int n, answer;
-    static int[][] board;
-    int[] dx = { -1, -1, 0, 1, 1, 1, 0, -1 };
-    int[] dy = { 0, 1, 1, 1, 0, -1, -1, -1 };
+class Point {
+    int x;
+    int y;
+    Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
-    public void DFS(int x, int y) {
-        if (board[x][y] == 1) {
-            board[x][y] = 0;
-            for (int k = 0; k < 8; k++) {
-                int nx = x + dx[k];
-                int ny = y + dy[k];
-                if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] == 1) {
-                    DFS(nx, ny);
+public class Main {
+    static int n, m, len, answer = Integer.MAX_VALUE;
+    static ArrayList<Point> home, pizza;
+    static int[] combination;
+
+    public void DFS(int L, int s) {
+        if (L == m) {
+            int sum = 0;
+            for (Point h : home) {
+                int dis = Integer.MAX_VALUE;
+                for (int c : combination) {
+                    dis = Math.min(dis, Math.abs(h.x - pizza.get(c).x) + Math.abs(h.y - pizza.get(c).y));
                 }
+                sum += dis;
+            }
+            answer = Math.min(answer, sum);
+        } else {
+            for (int i = s; i < len; i++) {
+                combination[L] = i;
+                DFS(L + 1, i + 1);
             }
         }
     }
@@ -25,20 +39,22 @@ public class Main {
         Main T = new Main();
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
-        board = new int[n][n];
+        m = sc.nextInt();
+        home = new ArrayList<>();
+        pizza = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                board[i][j] = sc.nextInt();
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == 1) {
-                    answer++;
+                int tmp = sc.nextInt();
+                if (tmp == 1) {
+                    home.add(new Point(i, j));
+                } else if (tmp == 2) {
+                    pizza.add(new Point(i, j));
                 }
-                T.DFS(i, j);
             }
         }
+        len = pizza.size();
+        combination = new int[m];
+        T.DFS(0, 0);
         System.out.println(answer);
     }
 }
